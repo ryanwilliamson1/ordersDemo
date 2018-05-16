@@ -29,7 +29,7 @@ var MongoClient = require('mongodb').MongoClient;
 var db,menu;
 //var dbURL="mongodb://pizza1:pizza1@localhost:27017/pizzadb"
 //step1:
-var dbURL="mongodb://pizza1:pizza1@ds225010.mlab.com:25010/heroku_t3r61w1t"
+var dbURL="mongodb://pizzaOwner:pizzaOwner@ds225010.mlab.com:25010/heroku_t3r61w1t"
 const PORT = process.env.PORT || 3000
 
 MongoClient.connect(dbURL, function(err, database) {
