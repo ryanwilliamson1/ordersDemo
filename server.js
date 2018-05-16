@@ -53,7 +53,7 @@ if(args=="dev"){
     MongoClient.connect(dbURL, function(err, database){
       if(err) throw err;
 
-      db=database.db("heroku_jvbbsrsm")
+      db=database.db("heroku_t3r61w1t")
       app.listen(PORT);
       console.log("listening on port "+PORT)
     });
