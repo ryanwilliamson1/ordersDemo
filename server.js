@@ -3,7 +3,7 @@ var app = express();
 var path=require('path')
 const {ObjectId} = require('mongodb'); // or ObjectID 
 //var router = express.Router();
-
+var userAuth=require('./user_controller/userVerify.js')
 var orderFs=require("./db_controller/dbOrders.js")
 var menuFs=require("./db_controller/dbMenu.js")
 
@@ -29,7 +29,7 @@ var MongoClient = require('mongodb').MongoClient;
 var db,menu;
 //var dbURL="mongodb://pizza1:pizza1@localhost:27017/pizzadb"
 //step1:
-var dbURL="mongodb://pizzaOwner:pizzaOwner@ds149724.mlab.com:49724/heroku_6pmnpj2x"
+var dbURL="mongodb://pizza1:pizza1@ds225010.mlab.com:25010/heroku_t3r61w1t"
 const PORT = process.env.PORT || 3000
 
 MongoClient.connect(dbURL, function(err, database) {
@@ -55,6 +55,14 @@ app.get('/menus', function(req,res) {
   else
     res.sendFile(`${publicPath}/adminLogin.html`)
 });
+//demo destroy session when get /logout
+app.get('/logout',function(req,res){
+  req.session.destroy(function(){
+    console.log('destroy the session')
+    res.redirect('/orders.html')
+  })
+  /* body...*/
+})
 app.get('/showOrders',function(req,res){
   console.log(req.query.date)
   var day=new Date(req.query.date)
@@ -84,6 +92,9 @@ app.post("/updateMenu",function(req,res) {
                               imgName:data.imgName}}
   menuFs.updateMenu(res,query,update)
 });
+
+app.use('/adminLogin',userAuth)
+
 app.post("/deleteOrder",function (req,res) {
   var data=req.body
  console.log("deleted:"+JSON.stringify(data))
